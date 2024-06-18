@@ -48,3 +48,5 @@ def create_subnet(ip_pc, user_pc, pass_pc, vpc_uuid, subnet_name, ip_config):
     response = requests.request("POST", url, auth=(user_pc, pass_pc), headers=headers, data=json.dumps(payload), verify=False)
     print(response.text)
     
+user_subnet_config = define_ip_config(OVERLAY_PREFIX_LEN, OVERLAY_IP, OVERLAY_GATEWAY, OVERLAY_POOL)
+create_subnet(IP_PC, USER_PC, PASS_PC, UUID_VPC, OVERLAY_NAME, user_subnet_config)
