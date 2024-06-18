@@ -10,3 +10,41 @@ OVERLAY_PREFIX_LEN = "@@{prefix_length}@@"
 OVERLAY_IP = "@@{ip_subnet}@@"
 OVERLAY_GATEWAY = "@@{ip_gateway}@@"
 OVERLAY_POOL = "@@{ip_pool_range}@@"
+
+def define_ip_config(ip_prefix_length, ip_subnet, ip_gateway, ip_pool_range):
+    return {
+        "subnet_ip": ip_subnet,
+        "prefix_length": int(ip_prefix_length),
+        "default_gateway_ip": ip_gateway,
+        "pool_list": [{
+            "range": ip_pool_range
+        }]
+    }
+
+def create_subnet(ip_pc, user_pc, pass_pc, vpc_uuid, subnet_name, ip_config):
+    url = "https://{}:9440/api/nutanix/v3/subnets".format(ip_pc)
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "spec": {
+            "name": subnet_name,
+            "resources": {
+                "subnet_type": "OVERLAY"
+                "vpc_reference": {
+                    "kind": "vpc",
+                    "uuid": vpc_uuid
+                },
+                "ip_config": ip_config
+            }
+        },
+        "metadata": {
+            "kind": "subnet"
+        },
+        "api_version": "3.1.0"
+    }
+
+    response = requests.request("POST", url, auth=(user_pc, pass_pc), headers=headers, data=json.dumps(payload), verify=False)
+    print(response.text)
+    
