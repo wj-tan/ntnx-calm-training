@@ -1,3 +1,5 @@
+import requests
+
 # Credential and IP for making API Calls
 IP_PC = "@@{ip_pc}@@"
 USER_PC = "@@{pc_cred.username}@@"
