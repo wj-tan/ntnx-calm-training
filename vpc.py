@@ -38,6 +38,6 @@ def create_vpc(ip_pc, user_pc, pass_pc, name_vpc, uuid_external_subnet):
     response = response.json()
     uuid_vpc = response["metadata"]["uuid"]
 
-    uuid_vpc = create_vpc(IP_PC, USER_PC, PASS_PC, NAME_VPC, UUID_UNDERLAY_SUBNET)
+uuid_vpc = create_vpc(IP_PC, USER_PC, PASS_PC, NAME_VPC, UUID_UNDERLAY_SUBNET)
 
-    print "vpc_uuid={}".format(uuid_vpc)
+print "vpc_uuid={}".format(uuid_vpc)
